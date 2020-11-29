@@ -1,0 +1,120 @@
+			.hero {
+				background: #eee;
+				padding: 20px;
+				border-radius: 10px;
+				margin-top: 1em;
+			}
+
+			.hero h1 {
+				margin-top: 0;
+				margin-bottom: 0.3em;
+			}
+
+			.c4 {
+				padding: 10px;
+				box-sizing: border-box;
+			}
+
+			.c4 h3 {
+				margin-top: 0;
+			}
+
+			.c4 a {
+				margin-top: 10px;
+				display: inline-block;
+			}
+
+			.header{
+			    color:  white;
+			}
+
+			.subheader{
+			    color:  white;
+			    margin-top: 10px;
+			}
+
+/*			nav.nav::before{
+                box-sizing: initial;
+			}
+
+		    nav.nav::after{
+                box-sizing: initial;
+			}*/
+
+/***********  For the Radio Button *********************/
+* {
+/*  box-sizing: border-box;*/
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: -webkit-gradient(linear, left top, right bottom, from(#1b1b1e), to(#333));
+  background: linear-gradient(to right bottom, #1b1b1e, #333);
+}
+
+.content-container {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.list {
+  -webkit-box-flex: 0;
+          flex: 0 0 20rem;
+}
+
+.list__item {
+  position: relative;
+}
+.list__item:hover > .label {
+  color: #009688;
+}
+.list__item:hover > .label::before {
+  border: 0.5rem solid #009688;
+  margin-right: 2rem;
+}
+
+.radio-btn {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+.radio-btn:checked + .label {
+  color: #009688;
+}
+.radio-btn:checked + .label::before {
+  margin-right: 2rem;
+  border: 0.5rem solid #009688;
+  background: #fff;
+}
+
+.label {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  padding: 0.75rem 0;
+  color: #fff;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}
+
+.label::before {
+  display: inline-block;
+  content: "";
+  height: 1.125rem;
+  width: 1.125rem;
+  margin-right: 0.625rem;
+  border: 0.5rem solid #fff;
+  border-radius: 50%;
+  -webkit-transition: all 0.25s linear;
+  transition: all 0.25s linear;
+}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to DonskyTech!{% endblock %}
+{% block content %}
+<div class="container">
+    <h1 class="header">Control WS2812B Neopixels From Your Phone</h1>
+    <hr/>
+
+    <h2 class="subheader">Choose Your Effects:</h2>
+    <div class="content-container">
+
+        <ul class="list">
+            <li class="list__item">
+                <input type="radio" class="radio-btn" name="choice" id="a-opt"/>
+                <label for="a-opt" class="label">Tunnel</label>
+            </li>
+            <li class="list__item">
+                <input type="radio" class="radio-btn" name="choice" id="b-opt"/>
+                <label for="b-opt" class="label">Rainbow Search</label>
+            </li>
+
+            <li class="list__item">
+                <input type="radio" class="radio-btn" name="choice" id="c-opt"/>
+                <label for="c-opt" class="label">Checker</label>
+            </li>
+
+            <li class="list__item">
+                <input type="radio" class="radio-btn" name="choice" id="d-opt"/>
+                <label for="d-opt" class="label">Swirl</label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
