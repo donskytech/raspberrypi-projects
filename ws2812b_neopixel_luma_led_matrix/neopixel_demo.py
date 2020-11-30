@@ -186,11 +186,9 @@ def gfx(device):
 
 def show_effect(effect):
     print("Showing effect : " + effect)
-    # gfx(device)
 
 
-if __name__ == "__main__":
-    try:
-        show_effect()
-    except KeyboardInterrupt:
-        pass
+def show_effects_demo():
+    gfx(device)
+
+
