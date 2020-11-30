@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+
+    <link href="{{ url_for('static', filename='css/entireframework.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+
+    <title>{% block title %} {% endblock %}</title>
+
+</head>
+<body>
+<nav class="nav" tabindex="-1" onclick="this.focus()">
+    <div class="container">
+        <a class="pagename current" href="#">www.donskytech.com</a>
+        <a href="#">One</a>
+        <a href="#">Two</a>
+        <a href="#">Three</a>
+    </div>
+</nav>
+<button class="btn-close btn btn-sm">×</button>
+
+
+{% block content %} {% endblock %}
+
+
+</body>
+</html>
