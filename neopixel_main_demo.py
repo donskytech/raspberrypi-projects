@@ -6,4 +6,4 @@ if __name__ == '__main__':
     parser.add_argument('effect', type=str, help="Input Effect Type")
     args = parser.parse_args()
     print(f"Received command line effect argument : {args.effect}")
-    show_effect(args.effect);
+    show_effect(args.effect)
