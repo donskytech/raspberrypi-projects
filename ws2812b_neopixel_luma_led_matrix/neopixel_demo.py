@@ -168,6 +168,8 @@ def wipe():
                             else:
                                 draw.line((0, temp, device.width, temp), fill=color)
 
+                    time.sleep(0.1)
+
 
 def gfx(effect):
     effects_dict = {"wipe": wipe, "tunnel": tunnel, "rainbow": rainbow_search, "checker": checker, "swirl": swirl}
