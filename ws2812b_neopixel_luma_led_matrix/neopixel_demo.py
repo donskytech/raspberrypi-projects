@@ -195,7 +195,7 @@ def gfx(device, effect):
 
 
 def show_effect(effect):
-    print("Showing effect : " + effect)
+    print(f"Showing effect : {effect}")
     gfx(effect)
 
 
