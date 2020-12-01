@@ -169,8 +169,14 @@ def wipe():
                                 draw.line((0, temp, device.width, temp), fill=color)
 
 
-def gfx(device, effect):
+def gfx(effect):
     effects_dict = {"wipe": wipe, "tunnel": tunnel, "rainbow": rainbow_search, "checker": checker, "swirl": swirl}
+
+    if effect not in effects_dict.keys():
+        print(f"Invalid effect key, please input wipe/tunnel/rainbow/checker/swirl")
+        return
+
+    print(f"Showing effect : {effect}")
 
     chosen_effect = effects_dict.get(effect)
 
@@ -195,7 +201,7 @@ def gfx(device, effect):
 
 
 def show_effect(effect):
-    print(f"Showing effect : {effect}")
-    gfx(device, effect)
+
+    gfx(effect)
 
 
