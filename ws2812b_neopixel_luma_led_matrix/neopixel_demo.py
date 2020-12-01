@@ -80,8 +80,8 @@ def blues_and_twos(x, y, step):
     x -= (device.width / 2)
     y -= (device.height / 2)
 
-#    xs = (math.sin((x + step) / 10.0) / 2.0) + 1.0
-#    ys = (math.cos((y + step) / 10.0) / 2.0) + 1.0
+    #    xs = (math.sin((x + step) / 10.0) / 2.0) + 1.0
+    #    ys = (math.cos((y + step) / 10.0) / 2.0) + 1.0
 
     scale = math.sin(step / 6.0) / 1.5
     r = math.sin((x * scale) / 1.0) + math.cos((y * scale) / 1.0)
@@ -110,7 +110,6 @@ def rainbow_search(x, y, step):
 
 # zoom tunnel
 def tunnel(x, y, step):
-
     speed = step / 100.0
     x -= (device.width / 2)
     y -= (device.height / 2)
@@ -154,41 +153,49 @@ def tunnel(x, y, step):
     return (col[0] * 255, col[1] * 255, col[2] * 255)
 
 
-def gfx(device):
-    effects = [tunnel, rainbow_search, checker, swirl]
+def wipe():
+    colors = ["red", "green", "blue", "white"]
+
+    while True:
+        for color in colors:
+            for y in range(device.height):
+                for x in range(device.width):
+                    with canvas(device) as draw:
+                        z = y + 1
+                        for temp in range(z):
+                            if temp + 1 == z:
+                                draw.line((0, y, x, y), fill=color)
+                            else:
+                                draw.line((0, temp, device.width, temp), fill=color)
+
+
+def gfx(device, effect):
+    effects_dict = {"wipe": wipe, "tunnel": tunnel, "rainbow": rainbow_search, "checker": checker, "swirl": swirl}
+
+    chosen_effect = effects_dict.get(effect)
 
     step = 0
     while True:
         for i in range(500):
             with canvas(device) as draw:
-                for y in range(device.height):
-                    for x in range(device.width):
-                        r, g, b = effects[0](x, y, step)
-                        if i > 400:
-                            r2, g2, b2 = effects[-1](x, y, step)
+                if effect == "wipe":
+                    wipe()
+                else:
+                    for y in range(device.height):
+                        for x in range(device.width):
+                            r, g, b = chosen_effect(x, y, step)
+                            r = int(max(0, min(255, r)))
+                            g = int(max(0, min(255, g)))
+                            b = int(max(0, min(255, b)))
+                            draw.point((x, y), (r, g, b))
 
-                            ratio = (500.00 - i) / 100.0
-                            r = r * ratio + r2 * (1.0 - ratio)
-                            g = g * ratio + g2 * (1.0 - ratio)
-                            b = b * ratio + b2 * (1.0 - ratio)
-                        r = int(max(0, min(255, r)))
-                        g = int(max(0, min(255, g)))
-                        b = int(max(0, min(255, b)))
-                        draw.point((x, y), (r, g, b))
+                    step += 1
 
-            step += 1
-
-            time.sleep(0.01)
-
-        effect = effects.pop()
-        effects.insert(0, effect)
+                    time.sleep(0.01)
 
 
 def show_effect(effect):
     print("Showing effect : " + effect)
-
-
-def show_effects_demo():
-    gfx(device)
+    gfx(effect)
 
 
