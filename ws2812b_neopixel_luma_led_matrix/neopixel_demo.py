@@ -168,7 +168,7 @@ def wipe():
                             else:
                                 draw.line((0, temp, device.width, temp), fill=color)
 
-                    time.sleep(0.1)
+                    time.sleep(0.05)
 
 
 def gfx(effect):
