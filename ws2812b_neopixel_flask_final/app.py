@@ -1,9 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 from gevent.pywsgi import WSGIServer
-from ws2812b_neopixel_luma_led_matrix.neopixel_demo import show_effect
+from ws2812b_neopixel_luma_led_matrix.neopixel_demo import WS2812_Neopixel
 from threading import Thread
 
 app = Flask(__name__)
+neopixel = WS2812_Neopixel()
 
 
 @app.route('/')
@@ -16,10 +17,7 @@ def change_effect():
     effect = request.args.get('effect', '')
     print("Received effect change request :: " + effect)
 
-    # Start a background thread
-    thread = Thread(target=show_effect, args=(effect,))
-    thread.daemon = True
-    thread.start()
+    neopixel.gfx(effect)
 
     return jsonify("success : true")
 
