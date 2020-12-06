@@ -23,6 +23,13 @@ class WS2812_Neopixel:
     def __init__(self):
         # create matrix device
         self.device = neopixel(width=8, height=8)
+        self.status = True;
+
+    def get_status(self):
+        return self.status
+
+    def terminate(self):
+        self.status = False
 
     def wipe(self):
         colors = ["red", "green", "blue", "white"]
@@ -181,7 +188,7 @@ class WS2812_Neopixel:
         chosen_effect = effects_dict.get(effect)
 
         step = 0
-        while True:
+        while self.status:
             for i in range(500):
                 with canvas(self.device) as draw:
                     if effect == "wipe":
@@ -198,6 +205,8 @@ class WS2812_Neopixel:
                         step += 1
 
                         time.sleep(0.01)
+
+        print("Exiting.....")
 
 
 
