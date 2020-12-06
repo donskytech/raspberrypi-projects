@@ -17,6 +17,7 @@ def change_effect():
     effect = request.args.get('effect', '')
     print("Received effect change request :: " + effect)
 
+    neopixel = WS2812_Neopixel()
     neopixel.gfx(effect)
 
     return jsonify("success : true")
