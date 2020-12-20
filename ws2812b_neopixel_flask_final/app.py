@@ -21,8 +21,8 @@ def change_effect():
     effect = request.args.get('effect', '')
 
     if process is not None:
-        process.kill()
-        process.wait()
+        process.terminate()
+        process.wait(timeout=0.5)
         process = None
 
     show_effect(effect)
