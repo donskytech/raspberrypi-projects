@@ -10,8 +10,12 @@ if __name__ == '__main__':
 
     try:
         neo_pixel =  WS2812_Neopixel()
-        neo_pixel.gfx(args.effect)
+        # neo_pixel.gfx(args.effect)
+        thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
+        thread.daemon = True
+        thread.start()
     except KeyboardInterrupt:
+        thread.join()
         pass
 
     # thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
