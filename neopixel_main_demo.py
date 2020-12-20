@@ -9,16 +9,14 @@ if __name__ == '__main__':
     # print(f"Received command line effect argument : {args.effect}")
 
     try:
-        neo_pixel =  WS2812_Neopixel()
-        # neo_pixel.gfx(args.effect)
-        thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
-        # thread.daemon = True
-        thread.start()
+        while True:
+            neo_pixel =  WS2812_Neopixel()
+            thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
+            thread.daemon = True
+            thread.start()
+            thread.join()
+
     except KeyboardInterrupt:
-        thread.join()
         pass
 
-    # thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
-    # thread.daemon = True
-    # thread.start()
 
