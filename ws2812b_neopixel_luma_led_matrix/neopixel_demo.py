@@ -180,10 +180,7 @@ class WS2812_Neopixel:
         effects_dict = {"wipe": self.wipe, "tunnel": self.tunnel, "rainbow": self.rainbow_search, "checker": self.checker, "swirl": self.swirl}
 
         if effect not in effects_dict.keys():
-            print(f"Invalid effect key, please input wipe/tunnel/rainbow/checker/swirl")
             return
-
-        print(f"Showing effect : {effect}")
 
         chosen_effect = effects_dict.get(effect)
 
@@ -205,8 +202,6 @@ class WS2812_Neopixel:
                         step += 1
 
                         time.sleep(0.01)
-
-        print("Exiting.....")
 
 
 
