@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     try:
         while True:
-            neo_pixel =  WS2812_Neopixel()
+            neo_pixel = WS2812_Neopixel()
             thread = Thread(target=neo_pixel.gfx, args=(args.effect,))
             thread.daemon = True
             thread.start()
