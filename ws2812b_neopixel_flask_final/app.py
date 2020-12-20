@@ -22,6 +22,7 @@ def change_effect():
 
     if process is not None:
         process.kill()
+        process.wait()
         process = None
 
     show_effect(effect)
