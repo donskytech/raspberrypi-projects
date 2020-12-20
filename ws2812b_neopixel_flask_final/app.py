@@ -22,7 +22,7 @@ def change_effect():
     effect = request.args.get('effect', '')
 
     if process is not None:
-        process.kill()
+        process.terminate()
         try:
             process.wait(timeout=0.1)
         except subprocess.TimeoutExpired:
