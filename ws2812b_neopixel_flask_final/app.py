@@ -21,11 +21,10 @@ def change_effect():
     global process
     effect = request.args.get('effect', '')
 
-    process.kill()
-    while not process.poll():
-        time.sleep(0.1)
-
     if process is not None:
+        process.kill()
+        while not process.poll():
+            time.sleep(0.1)
         del process
 
     show_effect(effect)
