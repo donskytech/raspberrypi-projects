@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import subprocess
-import os, signal
+import time
 
 app = Flask(__name__)
 process = None
@@ -21,14 +21,12 @@ def change_effect():
     global process
     effect = request.args.get('effect', '')
 
-    if process is not None:
-        process.terminate()
-        try:
-            process.wait(timeout=0.1)
-        except subprocess.TimeoutExpired:
-            os.kill(process.pid, signal.SIGSTOP)
+    process.kill()
+    while not process.poll():
+        time.sleep(0.1)
 
-        process = None
+    if process is not None:
+        del process
 
     show_effect(effect)
 
