@@ -35,7 +35,6 @@ display = drivers.Lcd()
 DEFAULT_INDENT = "     "
 input_key_codes = DEFAULT_INDENT
 DEFAULT_KEYCODE_LENGTH = 6
-CLEAR_DISPLAY = "                " # 16 char blank character
 
 def open_lock():
     print("Opening lock...")
@@ -56,20 +55,22 @@ def cleanup():
     display.lcd_clear()
     print("Releasing resources and stopping our Program...")
 
-def display_to_lcd(data, position = 2, duration = 1):
-    display.lcd_display_string(data, position)
-    time.sleep(duration)
-
-def init_lcd_display(show_input_keycode = False):
+def display_to_lcd(data, position = 2, show_input_keycode = False, duration = 1):
     display.lcd_clear()
-    display_to_lcd("Input Keycode:", 1)
 
     if show_input_keycode:
-        display_to_lcd(input_key_codes)
+        display.lcd_display_string("Input Keycode:", 1)
+        display.lcd_display_string(input_key_codes, 2)
+        time.sleep(0.1)
+
+    if data is not None:
+        display.lcd_display_string(data, position)
+    if duration is not None:
+        time.sleep(duration)
 
 def init_keypad_driver():
     factory = rpi_gpio.KeypadFactory()
-    keypad = factory.create_keypad(keypad=KEYPAD,row_pins=ROW_PINS, col_pins=COL_PINS) 
+    keypad = factory.create_keypad(keypad=KEYPAD,row_pins=ROW_PINS, col_pins=COL_PINS, key_delay=100) 
 
     keypad.registerKeyPressHandler(handle_keypad_press)
 
@@ -79,18 +80,16 @@ def handle_keypad_press(key):
     if key == '*':
         print("Clearing input..")
         input_key_codes = DEFAULT_INDENT
-        display.lcd_clear()
-        display_to_lcd("Input Keycode:", 1)
+        display_to_lcd(None, None, show_input_keycode = True)
     elif key == '#':
-        print(f"Length:: {len(input_key_codes.strip())}")
         if len(input_key_codes.strip()) < DEFAULT_KEYCODE_LENGTH:
-            display_to_lcd("Incomplete!!!", 2)
-            init_lcd_display(True)
+            display_to_lcd("Incomplete!!!", 2, show_input_keycode = False, duration=1)
+            display_to_lcd(None, None, show_input_keycode = True)
             return
 
 
         print("Connecting to REST API Server..")
-        display_to_lcd("Checking...", 2)
+        display_to_lcd("Checking......", 2, show_input_keycode = False)
         with_error, is_present = validate_keycode(input_key_codes)
 
         # If with error then do nothing as this will be displayed in the LCD
@@ -98,23 +97,22 @@ def handle_keypad_press(key):
             return
             
         if is_present:
-            display_to_lcd("Valid Keycode!")
+            display_to_lcd("Valid Keycode!", 2, show_input_keycode = False, duration=1)
             input_key_codes = DEFAULT_INDENT
             open_lock()
-            display_to_lcd(CLEAR_DISPLAY, 2)
+            display_to_lcd(None, None, show_input_keycode = True)
         else:
-            display_to_lcd("Invalid Keycode!")
+            display_to_lcd("Invalid Keycode!", 2, show_input_keycode = False, duration=1)
             input_key_codes = DEFAULT_INDENT
-            display_to_lcd(CLEAR_DISPLAY, 2)
+            display_to_lcd(None, None, show_input_keycode = True)
     else:
-        if len(input_key_codes.strip()) > DEFAULT_KEYCODE_LENGTH:
-            init_lcd_display(False)
-            display_to_lcd("Exceed!!!", 2)
-            init_lcd_display(True)
+        if len(input_key_codes.strip()) == DEFAULT_KEYCODE_LENGTH:
+            display_to_lcd("Exceed Limit!!!", 2, show_input_keycode = False, duration=1)
+            display_to_lcd(None, None, show_input_keycode = True)
             return
         input_key_codes += str(key)
         print(f"input_key_codes:: {input_key_codes}")
-        display_to_lcd(input_key_codes, 2)
+        display_to_lcd(None, None, show_input_keycode = True, duration=0.2)
 
 
 def validate_keycode(keycode):
@@ -126,9 +124,7 @@ def validate_keycode(keycode):
         response = requests.get(request_url, timeout=5)
     except requests.exceptions.RequestException as e:
         print(f"Error encountered calling REST API Server :: {e}")
-        display_to_lcd(CLEAR_DISPLAY)
-        display_to_lcd("Error!", 2, duration = 2)
-        init_lcd_display(True)
+        display_to_lcd("Server Error!!!", 2, show_input_keycode = False)
         with_error = True
         return with_error, False
     
@@ -144,7 +140,7 @@ def main():
 
     init_keypad_driver()
 
-    display_to_lcd("Input Keycode:", 1)
+    display_to_lcd(None, None, show_input_keycode = True)
 
     print("Press buttons on your keypad. Ctrl+C to exit.")
 
