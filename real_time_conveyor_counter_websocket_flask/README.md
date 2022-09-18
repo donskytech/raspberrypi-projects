@@ -1,8 +1,8 @@
 
-# Display Real time sensor values using Python, Flask and Flask-SocketIO  
+# Raspberry Pi Object Counting using Infrared sensor
 
 
-![Real Time Updates Using Python, Flask and Websockets](https://user-images.githubusercontent.com/69466026/190352777-6abb0c96-8ecb-4e04-b817-ce27dabd66cf.PNG)
+![Raspberry Pi Object Counting using Infrared sensor](https://user-images.githubusercontent.com/69466026/190884235-21f4e67b-9e38-4732-86f2-9ce61dada777.jpg)
 
 ### Steps on how to run:
 
