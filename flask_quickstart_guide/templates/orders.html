@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Flask Jinja Templates</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='orders.css') }}">
+    <script src="{{url_for('static', filename='orders.js')}}"></script>
+  </head>
+  <body>
+    <h1 class="Title">List of Orders:</h1>
+    {% if customer_name %}
+    <p>Customer Name: <b class="name">{{ customer_name }}</b>!</p>
+    {% endif %}
+    <ul>
+    {% for order in customer_orders %}
+        <li>{{ order }}</li>
+    {% endfor %}
+    </ul>
+  </body>
+</html>
